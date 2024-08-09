@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './App.css';
 
 function App() {
 
@@ -39,13 +39,13 @@ function App() {
 
   return (
     <div>
-      <h1>Posts</h1>
+      <h1 className="post-header">Posts</h1>
       {error && <p>Error: {error.message}</p>}
 
       {/* Dropdown to filter posts by category */}
-      <label htmlFor="category-filter">Filter by category:</label>
+      <label htmlFor="category-filter" className="category-label">Filter by category: </label> 
       <select id="category-filter" value={selectCategory} onChange={handleCategoryChange}>
-        <option value="">All Categories</option>
+        <option value=""> All Categories</option>
         {categories.map(category => (
           <option key={category} value={category}>
             {category}
@@ -76,7 +76,7 @@ function App() {
           ))}
         </ul>
       ) : (
-        <p>No posts found for the selected cateogyr</p>
+        <p>No posts found for the selected category</p>
       )}
     </div>
   );
