@@ -5,7 +5,7 @@ function App() {
 
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  const [selectCategory, setCategory] = useState('');
+  const [selectCategory, setCategory] = useState(''); // single select filter
     
   // Fetch data from a mock API
   useEffect(() => {
