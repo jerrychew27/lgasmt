@@ -9,7 +9,7 @@ function App() {
   const [error, setError] = useState(null);
   const [selectCategory, setCategory] = useState(''); // single select filter
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(5);
+  const [postsPerPage] = useState(6);
     
   // Fetch data from a mock API
   useEffect(() => {
@@ -83,15 +83,14 @@ function App() {
       {/* Listing the posts section */}
       <section>
         {currentPosts.length > 0 ? (
-          <ul className="no-bullets">
-            <TransitionGroup>
+          <TransitionGroup className="posts-list">
             {currentPosts.map(post => (
               <CSSTransition 
               key={post.id} 
               timeout={300} 
-              classNames="slide-right"
+              classNames="fade"
               >
-              <article className="posts-list" key={post.id} >
+              <article key={post.id} >
                 <h2>{post.title}</h2>
                 <p><strong>Published on:</strong> {new Date(post.publishDate).toLocaleDateString()}</p>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -113,7 +112,6 @@ function App() {
               </CSSTransition>
             ))}
             </TransitionGroup>
-            </ul>
           ) : (
             <p>No posts found for the selected category</p>
           )}
