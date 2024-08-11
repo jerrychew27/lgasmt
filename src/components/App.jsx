@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
+
 function App() {
 
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [selectCategory, setCategory] = useState(''); // single select filter
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
     
   // Fetch data from a mock API
   useEffect(() => {
@@ -22,11 +25,11 @@ function App() {
     .catch(error => {
       setError(error); // set the error message to the state
     });
-
   }, []);
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value); // this updates the state with the selected category
+    setCurrentPage(1); // reset the current page to 1 when a new category is selected
   };
 
   // Filter posts based on the selected category
@@ -37,9 +40,16 @@ function App() {
 
   const categories = Array.from(new Set(posts.flatMap(post => post.categories.map(category => category.name))));
 
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
+  const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex);
+  
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       <h1 className="post-header">Posts</h1>
+
       {error && <p>Error: {error.message}</p>}
 
       {/* Dropdown to filter posts by category */}
@@ -53,9 +63,10 @@ function App() {
         ))}
       </select>
 
-      {filteredPosts.length > 0 ? (
+      {/* Listing the posts */}
+      {currentPosts.length > 0 ? (
         <ul className="no-bullets">
-          {filteredPosts.map(post => (
+          {currentPosts.map(post => (
             <li key={post.id} style={{ marginBottom: '20px', padding: '10px', border: '5px solid #ccc' }}>
               <h2>{post.title}</h2>
               <p><strong>Published on:</strong> {new Date(post.publishDate).toLocaleDateString()}</p>
@@ -78,6 +89,17 @@ function App() {
       ) : (
         <p>No posts found for the selected category</p>
       )}
+
+      {/* Pagination */}
+      <div className="pagination-container">
+        {Array.from({ length: Math.ceil(filteredPosts.length / postsPerPage) }, (_, i) => (
+          <button 
+            key={i + 1} 
+            onClick={() => paginate(i + 1)}>
+            {i + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
   }

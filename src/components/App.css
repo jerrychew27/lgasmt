@@ -16,3 +16,27 @@
     color: #333;
     text-align: center;
 }
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.pagination-container button {
+  background-color: #f1f1f1;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  margin: 7px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-container button:hover {
+  background-color: #ddd;
+}
