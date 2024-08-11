@@ -1,0 +1,125 @@
+/* Declaring global variables */
+$background-color: #EDE8F5;
+$post-background-color: #efdfdf;
+$primary-border-color: #7091E6;
+$secondary-border-color: #8697C4;
+$hover-background-color: #ADBBDA;
+$header-font: Helvetica, sans-serif;
+$font-color: #333;
+$button-background: #9faac9;
+$button-border: #406bd8;
+
+/* Styling the App component */
+body {
+  background-color: $background-color;
+  font-family: Arial, $header-font, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Stlying the post listing */
+.posts-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+
+  article {
+    background-color: $post-background-color;
+    border-radius: 10px;
+    border: 1px solid $primary-border-color;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* post card style for authors */
+.image-container {
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid $primary-border-color;
+  margin-right: 10px;
+}
+
+/* category filter lable style */
+.category-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 40px;
+  color: $font-color;
+}
+
+/* the header style of the Posts title at the top of the page */
+.post-header {
+  font-family: $header-font, sans-serif;
+  font-size: 45px;
+  font-weight: bold;
+  color: $font-color;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* styles and alignment for the pagination buttons */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+
+  button {
+    background-color: $background-color;
+    color: black;
+    font-family: Arial, $header-font, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid $secondary-border-color;
+    border-radius: 5px;
+    margin: 7px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $hover-background-color;
+    }
+  }
+}
+
+/* animation for changing pages */
+.fade-enter {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-enter-active {
+  opacity: 1;
+}
+
+.fade-exit {
+  opacity: 1;
+  transition: opacity 500ms ease-out;
+}
+
+.fade-exit-active {
+  opacity: 0;
+}
+
+/* Deatils button style */
+.details-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .details-button {
+    display: block;
+    background-color: $button-background;
+    color: black;
+    font-family: Arial, $header-font, sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1.5px solid $button-border;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+}

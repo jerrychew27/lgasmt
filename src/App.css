@@ -1,18 +1,11 @@
-/* 
-
-=====CSS code has been converted to SASS code=====
-
-*/
-
-
-body{
-    background-color: #EDE8F5;
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-    padding: 0;
+body {
+  background-color: #EDE8F5;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-
+/* Style of the postings */
 .posts-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -28,7 +21,7 @@ body{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-
+/* post card style for authors */
 .image-container {
   display: flex;
   justify-content: center;
@@ -37,24 +30,25 @@ body{
   margin-right: 10px;
 }
 
-.category-label{
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 40px;
-    color: #333;
+/* category filter lable style */
+.category-label {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 40px;
+  color: #333;
 }
 
-
-.post-header{
-    font-family: Helvetica, sans-serif;
-    font-size: 45px;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 10px;
+/* the header style of the Posts title at the top of the page */
+.post-header {
+  font-family: Helvetica, sans-serif;
+  font-size: 45px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
-
+/* styles and alignment for the pagination buttons */
 .pagination-container {
   display: flex;
   justify-content: center;
@@ -79,7 +73,7 @@ body{
   background-color: #ADBBDA;
 }
 
-
+/* animation for changing pages */
 .fade-enter {
   opacity: 0;
   transition: opacity 500ms ease-in;
@@ -98,6 +92,7 @@ body{
   opacity: 0;
 }
 
+/* Deatils button style */
 .details-container {
   display: flex;
   justify-content: center;
@@ -115,5 +110,6 @@ body{
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
-
 }
+
+/*# sourceMappingURL=App.css.map */

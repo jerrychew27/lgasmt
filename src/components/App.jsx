@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link, useSearchParams } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 
 function App() {
 
@@ -75,7 +75,6 @@ function App() {
         <Link to="/details">
         <button className="details-button">Details</button>
         </Link>
-
       </section>
 
       {/* Dropdown menu section to filter posts by category */}
