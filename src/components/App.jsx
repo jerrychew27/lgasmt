@@ -30,6 +30,7 @@ function App() {
   const handleCategoryChange = (event) => {
     setCategory(event.target.value); // this updates the state with the selected category
     setCurrentPage(1); // reset the current page to 1 when a new category is selected
+    window.scrollTo(0, 0); // scroll to the top of the page when a new category is selected
   };
 
   // Filter posts based on the selected category
@@ -44,54 +45,65 @@ function App() {
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex);
   
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo(0, 0); // scroll to the top of the page when a new page is selected
+  }
 
   return (
-    <div>
-      <h1 className="post-header">Posts</h1>
+    <main>
+      <header>
+        <h1 className="post-header">POSTS</h1>
+      </header>
 
       {error && <p>Error: {error.message}</p>}
 
-      {/* Dropdown to filter posts by category */}
-      <label htmlFor="category-filter" className="category-label">Filter by category: </label> 
-      <select id="category-filter" value={selectCategory} onChange={handleCategoryChange}>
-        <option value=""> All Categories</option>
+      {/* Dropdown menu section to filter posts by category */}
+      <section>
+        <label htmlFor="category-filter" className="category-label">Filter by category: </label> 
+        <select id="category-filter" value={selectCategory} onChange={handleCategoryChange}>
+          <option value=""> All Categories</option>
         {categories.map(category => (
           <option key={category} value={category}>
             {category}
             </option>
         ))}
-      </select>
+        </select>
+      </section>
 
-      {/* Listing the posts */}
-      {currentPosts.length > 0 ? (
-        <ul className="no-bullets">
-          {currentPosts.map(post => (
-            <li key={post.id} style={{ marginBottom: '20px', padding: '10px', border: '5px solid #ccc' }}>
-              <h2>{post.title}</h2>
-              <p><strong>Published on:</strong> {new Date(post.publishDate).toLocaleDateString()}</p>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <img src={post.author.avatar} alt={`${post.author.name} avatar`} style={{ borderRadius: '50%', marginRight: '10px' }} />
-                <p><strong>Author:</strong> {post.author.name}</p>
-              </div>
-              <p><strong>Summary:</strong> {post.summary}</p>
-              <div>
-                <strong>Categories:</strong>
-                <ul>
-                  {post.categories.map(category => (
-                    <li key={category.id}>{category.name}</li>
-                  ))}
-                </ul>
-              </div>
-            </li>
-          ))}
-        </ul>
+      {/* Listing the posts section */}
+      <section>
+        {currentPosts.length > 0 ? (
+          <ul className="no-bullets">
+            {currentPosts.map(post => (
+              <article className="posts-list" key={post.id} >
+                <h2>{post.title}</h2>
+                <p><strong>Published on:</strong> {new Date(post.publishDate).toLocaleDateString()}</p>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <img className="image-container" src={post.author.avatar} alt={`${post.author.name} avatar`} />
+                  <p><strong>Author:</strong> {post.author.name}</p>
+                </div>
+                <p><strong>Summary:</strong> {post.summary}</p>
+
+                {/* Display the categories of the post section */}
+                <section>
+                  <strong>Categories:</strong>
+                  <ul>
+                    {post.categories.map(category => (
+                      <li key={category.id}>{category.name}</li>
+                    ))}
+                  </ul>
+                </section>
+              </article>
+            ))}
+          </ul>
       ) : (
         <p>No posts found for the selected category</p>
       )}
+      </section>
 
       {/* Pagination */}
-      <div className="pagination-container">
+      <nav className="pagination-container">
         {Array.from({ length: Math.ceil(filteredPosts.length / postsPerPage) }, (_, i) => (
           <button 
             key={i + 1} 
@@ -99,8 +111,10 @@ function App() {
             {i + 1}
           </button>
         ))}
-      </div>
-    </div>
+      </nav>
+  
+    </main>
+    
   );
   }
 
