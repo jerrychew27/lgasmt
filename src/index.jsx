@@ -1,6 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createRoot } from 'react-dom/client';
+import App from './components/App'; // Home Page Component
+import Details from './components/Details'; // Details Page Component
 /**
  * This file can be ignored, please work in ./components/App.jsx
  */
@@ -11,12 +13,16 @@ import './mock';
 // Include styles.
 import './styles/index.css';
 
-// Include application component.
-import App from './components/App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const rootElemnt = document.getElementById('root');
+const root = createRoot(rootElemnt);
+root.render(
+    <React.StrictMode>
+        <Router>
+            <Routes>
+                <Route path="/" element={<App />} />
+                <Route path="/details" element={<Details />} />
+            </Routes>
+        </Router>
+    </React.StrictMode>
 );

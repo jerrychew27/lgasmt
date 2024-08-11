@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 import './App.css';
-
 
 function App() {
 
@@ -58,6 +58,14 @@ function App() {
       </header>
 
       {error && <p>Error: {error.message}</p>}
+
+      {/* Details button */}
+      <section className="details-container">
+        <Link to="/details">
+        <button className="details-button">Details</button>
+        </Link>
+
+      </section>
 
       {/* Dropdown menu section to filter posts by category */}
       <section>
@@ -121,7 +129,8 @@ function App() {
           </button>
         ))}
       </nav>
-  
+
+
     </main>
     
     );

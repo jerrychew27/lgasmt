@@ -42,6 +42,7 @@ body{
     font-weight: bold;
     color: #333;
     text-align: center;
+    margin-bottom: 10px;
 }
 
 /* styles and alignment for the pagination buttons */
@@ -95,4 +96,29 @@ body{
 .slide-right-enter-active {
   transform: translateX(0);
   transition: transform 300ms ease-in;
+}
+
+.slide-right-exit {
+  transform: translateY(0);
+}
+
+/* Deatils button style */
+.details-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.details-button {
+  display: block;
+  background-color: #9faac9;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  border: 1.5px solid #406bd8;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+
 }
