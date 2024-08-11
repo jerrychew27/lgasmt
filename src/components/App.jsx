@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import './App.css';
 
 
@@ -75,7 +76,13 @@ function App() {
       <section>
         {currentPosts.length > 0 ? (
           <ul className="no-bullets">
+            <TransitionGroup>
             {currentPosts.map(post => (
+              <CSSTransition 
+              key={post.id} 
+              timeout={300} 
+              classNames="slide-right"
+              >
               <article className="posts-list" key={post.id} >
                 <h2>{post.title}</h2>
                 <p><strong>Published on:</strong> {new Date(post.publishDate).toLocaleDateString()}</p>
@@ -95,11 +102,13 @@ function App() {
                   </ul>
                 </section>
               </article>
+              </CSSTransition>
             ))}
-          </ul>
-      ) : (
-        <p>No posts found for the selected category</p>
-      )}
+            </TransitionGroup>
+            </ul>
+          ) : (
+            <p>No posts found for the selected category</p>
+          )}
       </section>
 
       {/* Pagination */}
@@ -115,7 +124,7 @@ function App() {
   
     </main>
     
-  );
+    );
   }
 
 export default App;
