@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import './App.css';
 
 function App() {
 
+  // Declaring the state variables
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
-  const [selectCategory, setCategory] = useState(''); // single select filter
-  const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
-    
+   
+  // Using useSearchParams to handle the query string
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Get category and page from the query string
+  const selectCategory = searchParams.get('category') || '';
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
+
   // Fetch data from a mock API
   useEffect(() => {
     fetch('/api/posts')
@@ -29,8 +35,10 @@ function App() {
   }, []);
 
   const handleCategoryChange = (event) => {
-    setCategory(event.target.value); // this updates the state with the selected category
-    setCurrentPage(1); // reset the current page to 1 when a new category is selected
+    // setCategory(event.target.value); // this updates the state with the selected category
+    // setCurrentPage(1); // reset the current page to 1 when a new category is selected
+    const newCategory = event.target.value;
+    setSearchParams({ category: newCategory, page: '1' });
     window.scrollTo(0, 0); // scroll to the top of the page when a new category is selected
   };
 
@@ -40,14 +48,17 @@ function App() {
       post.categories.some(category => category.name === selectCategory))
        : posts;
 
+  // Get the unique categories from the posts
   const categories = Array.from(new Set(posts.flatMap(post => post.categories.map(category => category.name))));
 
+  // Get the current posts based on the current page
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex);
   
+  // Pagination function
   const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
+    setSearchParams({ category: selectCategory, page: pageNumber.toString() }); // Update URL
     window.scrollTo(0, 0); // scroll to the top of the page when a new page is selected
   }
 
