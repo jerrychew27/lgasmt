@@ -5,19 +5,20 @@ import './App.scss';
 
 function App() {
 
-  // Declaring the state variables
+  // declaring the state variables
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [postsPerPage] = useState(6);
    
-  // Using useSearchParams to handle the query string
+  // using useSearchParams to handle the query string
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // Get category and page from the query string
+  // getting the category and page number from the query string
   const selectCategory = searchParams.get('category') || '';
   const currentPage = parseInt(searchParams.get('page') || '1', 10);
+ 
 
-  // Fetch data from a mock API
+  // fetch data from a mock API
   useEffect(() => {
     fetch('/api/posts')
     .then(response => {
@@ -30,38 +31,38 @@ function App() {
       setPosts(data.posts); // set the fetched data from the mock API to the state
     })
     .catch(error => {
-      setError(error); // set the error message to the state
+      setError(error); // set the error message of the state if there is an error
     });
   }, []);
 
+  // implementing a single select category filter and added persist filter state in query string using useSearchParams
   const handleCategoryChange = (event) => {
-    // setCategory(event.target.value); // this updates the state with the selected category
-    // setCurrentPage(1); // reset the current page to 1 when a new category is selected
     const newCategory = event.target.value;
     setSearchParams({ category: newCategory, page: '1' });
     window.scrollTo(0, 0); // scroll to the top of the page when a new category is selected
   };
 
-  // Filter posts based on the selected category
+  // filter posts based on the selected category
   const filteredPosts = selectCategory 
     ? posts.filter(post => 
       post.categories.some(category => category.name === selectCategory))
        : posts;
 
-  // Get the unique categories from the posts
+  // get the unique categories from the posts
   const categories = Array.from(new Set(posts.flatMap(post => post.categories.map(category => category.name))));
 
-  // Get the current posts based on the current page
+  // get the current posts based on the current page
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts = filteredPosts.slice(firstPostIndex, lastPostIndex);
   
-  // Pagination function
+  // pagination function
   const paginate = (pageNumber) => {
-    setSearchParams({ category: selectCategory, page: pageNumber.toString() }); // Update URL
+    setSearchParams({ category: selectCategory, page: pageNumber.toString() }); // update URL
     window.scrollTo(0, 0); // scroll to the top of the page when a new page is selected
   }
 
+  // output the data from the mock API, and added details button, category filter, and pagination
   return (
     <main>
       <header>
@@ -70,14 +71,14 @@ function App() {
 
       {error && <p>Error: {error.message}</p>}
 
-      {/* Details button */}
+      {/* details button that links to the details page */}
       <section className="details-container">
         <Link to="/details">
         <button className="details-button">Details</button>
         </Link>
       </section>
 
-      {/* Dropdown menu section to filter posts by category */}
+      {/* dropdown menu section to filter posts by category */}
       <section>
         <label htmlFor="category-filter" className="category-label">Filter by category: </label> 
         <select id="category-filter" value={selectCategory} onChange={handleCategoryChange}>
@@ -90,7 +91,7 @@ function App() {
         </select>
       </section>
 
-      {/* Listing the posts section */}
+      {/* listing the posts section with added transition */}
       <section>
         {currentPosts.length > 0 ? (
           <TransitionGroup className="posts-list">
@@ -109,7 +110,7 @@ function App() {
                 </div>
                 <p><strong>Summary:</strong> {post.summary}</p>
 
-                {/* Display the categories of the post section */}
+                {/* display the categories of the post section */}
                 <section>
                   <strong>Categories:</strong>
                   <ul>
@@ -127,7 +128,7 @@ function App() {
           )}
       </section>
 
-      {/* Pagination */}
+      {/* pagination */}
       <nav className="pagination-container">
         {Array.from({ length: Math.ceil(filteredPosts.length / postsPerPage) }, (_, i) => (
           <button 
@@ -137,8 +138,6 @@ function App() {
           </button>
         ))}
       </nav>
-
-
     </main>
     
     );

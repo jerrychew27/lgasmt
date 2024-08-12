@@ -1,4 +1,4 @@
-/* Declaring global variables */
+/* declaring global variables */
 $background-color: #EDE8F5;
 $post-background-color: #efdfdf;
 $primary-border-color: #7091E6;
@@ -9,7 +9,7 @@ $font-color: #333;
 $button-background: #9faac9;
 $button-border: #406bd8;
 
-/* Styling the App component */
+/* main app component styles */
 body {
   background-color: $background-color;
   font-family: Arial, $header-font, sans-serif;
@@ -17,7 +17,7 @@ body {
   padding: 0;
 }
 
-/* Stlying the post listing */
+/* post listing styles */
 .posts-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -104,7 +104,7 @@ body {
   opacity: 0;
 }
 
-/* Deatils button style */
+/* details button style */
 .details-container {
   display: flex;
   justify-content: center;
